@@ -10,4 +10,8 @@
     <bean id="invalidBean"
           class="xxx.xxxxx" >
     </bean>
+    <bean id="prototypeBean"
+          class="cn.levicode.service.v1.PetStoreService"
+          scope="prototype">
+    </bean>
 </beans>
