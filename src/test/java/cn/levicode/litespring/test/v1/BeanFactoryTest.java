@@ -6,7 +6,7 @@ import cn.levicode.litespring.beans.factory.support.BeanCreationException;
 import cn.levicode.litespring.beans.factory.support.DefaultBeanFactory;
 import cn.levicode.litespring.beans.factory.xml.XmlBeanDefinitionReader;
 import cn.levicode.litespring.core.io.ClassPathResource;
-import cn.levicode.service.v1.PetStoreService;
+import cn.levicode.litespring.service.v1.PetStoreService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class BeanFactoryTest {
 
         assertEquals(BeanDefinition.SCOPE_DEFAULT, bd.getScope());
 
-        assertEquals("cn.levicode.service.v1.PetStoreService", bd.getBeanClassName());
+        assertEquals("cn.levicode.litespring.service.v1.PetStoreService", bd.getBeanClassName());
 
         PetStoreService petStore = (PetStoreService) factory.getBean("petStore");
         assertNotNull(petStore);
@@ -52,7 +52,7 @@ public class BeanFactoryTest {
 
         assertFalse(bd.isSingleton());
 
-        assertEquals("cn.levicode.service.v1.PetStoreService", bd.getBeanClassName());
+        assertEquals("cn.levicode.litespring.service.v1.PetStoreService", bd.getBeanClassName());
 
         PetStoreService petStore = (PetStoreService) factory.getBean("prototypeBean");
         assertNotNull(petStore);

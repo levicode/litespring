@@ -3,7 +3,7 @@ package cn.levicode.litespring.test.v1;
 import cn.levicode.litespring.context.ApplicationContext;
 import cn.levicode.litespring.context.support.ClassPathXmlApplicationContext;
 import cn.levicode.litespring.context.support.FileSystemXmlApplicationContext;
-import cn.levicode.service.v1.PetStoreService;
+import cn.levicode.litespring.service.v1.PetStoreService;
 import org.junit.Assert;
 import org.junit.Test;
 
