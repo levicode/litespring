@@ -1,6 +1,7 @@
 package cn.levicode.litespring.beans.factory.xml;
 
 import cn.levicode.litespring.beans.BeanDefinition;
+import cn.levicode.litespring.beans.ConstructorArgument;
 import cn.levicode.litespring.beans.PropertyValue;
 import cn.levicode.litespring.beans.factory.BeanDefinitionStoreException;
 import cn.levicode.litespring.beans.factory.config.RuntimeBeanReference;
@@ -36,6 +37,10 @@ public class XmlBeanDefinitionReader {
 
     public static final String REF_ATTRIBUTE = "ref";
 
+    public static final String CONSTRUCTOR_ARG_ELEMENT = "constructor-arg";
+
+    public static final String TYPE_ATTRIBUTE = "type";
+
     private static final Logger LOGGER = Logger.getLogger(XmlBeanDefinitionReader.class);
 
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
@@ -61,6 +66,7 @@ public class XmlBeanDefinitionReader {
                 if (element.attribute(SCOPE_ATTRIBUTE) != null) {
                     bd.setScope(element.attributeValue(SCOPE_ATTRIBUTE));
                 }
+                parseConstructorArgElements(element, bd);
                 parsePropertyElement(element, bd);
                 registry.registerBeanDefinition(id, bd);
             }
@@ -76,6 +82,29 @@ public class XmlBeanDefinitionReader {
             }
         }
     }
+
+    public void parseConstructorArgElements(Element beanElement, BeanDefinition beanDefinition) {
+        Iterator<Element> iterator = beanElement.elementIterator(CONSTRUCTOR_ARG_ELEMENT);
+        while (iterator.hasNext()) {
+            Element constructorElement = iterator.next();
+            parseConstructorArgElement(constructorElement, beanDefinition);
+        }
+    }
+
+    public void parseConstructorArgElement(Element constructorElement, BeanDefinition beanDefinition) {
+        String name = constructorElement.attributeValue(NAME_ATTRIBUTE);
+        String type = constructorElement.attributeValue(TYPE_ATTRIBUTE);
+        Object value = parsePropertyValue(constructorElement, beanDefinition, null);
+        ConstructorArgument.ValueHolder valueHolder = new ConstructorArgument.ValueHolder(value);
+        if (StringUtils.hasLength(name)) {
+            valueHolder.setName(name);
+        }
+        if (StringUtils.hasLength(type)) {
+            valueHolder.setType(type);
+        }
+        beanDefinition.getConstructorArgument().addArgumentValue(valueHolder);
+    }
+
 
     public void parsePropertyElement(Element beanElement, BeanDefinition beanDefinition) {
        Iterator<Element> iterator = beanElement.elementIterator(PROPERTY_ATTRIBUTE);

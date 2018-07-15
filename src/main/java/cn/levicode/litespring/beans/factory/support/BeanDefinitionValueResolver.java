@@ -1,13 +1,14 @@
 package cn.levicode.litespring.beans.factory.support;
 
+import cn.levicode.litespring.beans.factory.BeanFactory;
 import cn.levicode.litespring.beans.factory.config.RuntimeBeanReference;
 import cn.levicode.litespring.beans.factory.config.TypedStringValue;
 
 public class BeanDefinitionValueResolver {
 
-    private final DefaultBeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public BeanDefinitionValueResolver(DefaultBeanFactory beanFactory) {
+    public BeanDefinitionValueResolver(BeanFactory beanFactory) {
         this.beanFactory = beanFactory;
     }
 
